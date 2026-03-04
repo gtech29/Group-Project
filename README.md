@@ -17,32 +17,7 @@ This login and user registration interface is intended to be a secure system tha
 
 ---
 
-## **Technologies Used**
-
-- **Python**: Main programming language used for logic and GUI.
-- **MySQL**: Relational database used for user data storage.
-
----
-
-## **Folder Structure**
-
-```text
-Group-Project-COMP440  
-├── 📄 main.py              # Main Python script with login, registration, and GUI logic  
-├── 📄 database.sql         # SQL file to create the necessary tables 
-├── 📄 requirements.txt     # Required libraries for the project  
-└── 📄 README.md            # Project documentation (this file)  
-```
-
----
-
-## **Screenshots**
-
-> TBD
-
----
-
-## **Installation and Setup**
+### **Installation and Setup**
 
 To install the repository in your system, do the following.
 
@@ -78,6 +53,32 @@ pip install -r requirements.txt
 ensure you have the right interpreter (virtual environment)
 
 ---
+
+### **Technologies Used**
+
+- **Python**: Main programming language used for logic and GUI.
+- **MySQL**: Relational database used for user data storage.
+
+---
+
+## **Folder Structure**
+
+```text
+Group-Project-COMP440  
+├── 📄 main.py              # Main Python script with login, registration, and GUI logic  
+├── 📄 database.sql         # SQL file to create the necessary tables 
+├── 📄 requirements.txt     # Required libraries for the project  
+└── 📄 README.md            # Project documentation (this file)  
+```
+
+---
+
+## **Screenshots**
+
+> TBD
+
+---
+
 
 ## **License**
 
