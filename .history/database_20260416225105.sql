@@ -24,6 +24,6 @@ CREATE TABLE IF NOT EXISTS rental_unit (
     username VARCHAR(50),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (username) REFERENCES user (username)
+    FOREIGN KEY (username) REFERENCES user (username),
     
     );

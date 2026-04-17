@@ -22,8 +22,6 @@ CREATE TABLE IF NOT EXISTS rental_unit (
     feature VARCHAR(50) NOT NULL,
     price INT NOT NULL,
     username VARCHAR(50),
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    FOREIGN KEY (username) REFERENCES user (username)
-    
+    FOREIGN KEY (username) REFERENCES user (username),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     );

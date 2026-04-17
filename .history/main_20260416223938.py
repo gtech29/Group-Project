@@ -1,4 +1,3 @@
-from logging import root
 import tkinter as tk
 from tkinter import messagebox
 import hashlib
@@ -135,7 +134,13 @@ def open_signup_window():
 
     tk.Button(signup_win, text="Signup", width=18, command=handle_signup).pack(pady=20)
 
-    
+    link = tk.Label(signup_win, text="Already have an account? Login",
+                fg="blue", cursor="hand2")
+    link.pack()
+
+    link.bind("<Button-1>", lambda e: [signup_win.destroy(), open_login_window()])
+
+
 # Login
 def handle_login():
     global current_user
@@ -190,6 +195,8 @@ def open_login_window():
 
     tk.Button(root, text="Login", width=18, command=handle_login).pack(pady=20)
 
+        link = tk.Label(root, text="Don't have an account? Signup",
+
 def handle_insert_rental():
         global current_user
 
@@ -216,22 +223,6 @@ def handle_insert_rental():
         cursor = cnx.cursor()
 
         try:
-            cursor.execute("""
-                SELECT COUNT(*)
-                FROM rental_unit
-                WHERE username = %s
-                AND created_at >= CURDATE()
-            """, (current_user,))
-
-            count = cursor.fetchone()[0]
-
-            if count >= 2:
-                messagebox.showerror(
-                    "Limit reached",
-                    "You can only post 2 rentals per day."
-                )
-                return
-        
             cursor.execute(
                 """
                 INSERT INTO rental_unit (title, description, feature, price, username)
