@@ -1,4 +1,3 @@
-from logging import root
 import tkinter as tk
 from tkinter import messagebox
 import hashlib
@@ -135,7 +134,7 @@ def open_signup_window():
 
     tk.Button(signup_win, text="Signup", width=18, command=handle_signup).pack(pady=20)
 
-    
+
 # Login
 def handle_login():
     global current_user
@@ -162,7 +161,6 @@ def handle_login():
         stored_hash = result[0]
         entered_hash = hash_password(password)
         if entered_hash == stored_hash:
-            current_user = username  # Set the current user
             messagebox.showinfo("Login", f"Welcome {username}!")
             open_dashboard_window()
         else:
@@ -216,22 +214,6 @@ def handle_insert_rental():
         cursor = cnx.cursor()
 
         try:
-            cursor.execute("""
-                SELECT COUNT(*)
-                FROM rental_unit
-                WHERE username = %s
-                AND created_at >= CURDATE()
-            """, (current_user,))
-
-            count = cursor.fetchone()[0]
-
-            if count >= 2:
-                messagebox.showerror(
-                    "Limit reached",
-                    "You can only post 2 rentals per day."
-                )
-                return
-        
             cursor.execute(
                 """
                 INSERT INTO rental_unit (title, description, feature, price, username)
@@ -287,7 +269,7 @@ def open_dashboard_window():
 root = tk.Tk()
 root.withdraw()
 
-open_login_window()
+open_signup_window()  # Signup opens first
 
 
 root.mainloop()

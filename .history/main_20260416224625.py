@@ -216,22 +216,21 @@ def handle_insert_rental():
         cursor = cnx.cursor()
 
         try:
-            cursor.execute("""
-                SELECT COUNT(*)
-                FROM rental_unit
-                WHERE username = %s
-                AND created_at >= CURDATE()
-            """, (current_user,))
+             cursor.execute("""
+            SELECT COUNT(*)
+            FROM rental_unit
+            WHERE username = %s
+            AND created_at >= CURDATE()
+        """, (current_user,))
 
-            count = cursor.fetchone()[0]
+        count = cursor.fetchone()[0]
 
-            if count >= 2:
-                messagebox.showerror(
-                    "Limit reached",
-                    "You can only post 2 rentals per day."
-                )
-                return
-        
+        if count >= 2:
+            messagebox.showerror(
+                "Limit reached",
+                "You can only post 2 rentals per day."
+            )
+            return
             cursor.execute(
                 """
                 INSERT INTO rental_unit (title, description, feature, price, username)

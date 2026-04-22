@@ -1,4 +1,3 @@
-from logging import root
 import tkinter as tk
 from tkinter import messagebox
 import hashlib
@@ -13,9 +12,6 @@ load_dotenv()
 # retrieve username and password
 db_username = os.getenv("DB_USERNAME")
 db_password = os.getenv("DB_PASSWORD")
-
-# track current user
-current_user = None
 
 
 def hash_password(password):
@@ -135,11 +131,9 @@ def open_signup_window():
 
     tk.Button(signup_win, text="Signup", width=18, command=handle_signup).pack(pady=20)
 
-    
+
 # Login
 def handle_login():
-    global current_user
-
     username = username_entry.get().strip()
     password = password_entry.get().strip()
 
@@ -162,7 +156,6 @@ def handle_login():
         stored_hash = result[0]
         entered_hash = hash_password(password)
         if entered_hash == stored_hash:
-            current_user = username  # Set the current user
             messagebox.showinfo("Login", f"Welcome {username}!")
             open_dashboard_window()
         else:
@@ -191,69 +184,7 @@ def open_login_window():
     tk.Button(root, text="Login", width=18, command=handle_login).pack(pady=20)
 
 def handle_insert_rental():
-        global current_user
-
-        title = rental_title.get().strip()
-        description = rental_description.get().strip()
-        feature = rental_feature.get().strip()
-        price = rental_price.get().strip()
-
-        # Validate inputs
-        if not all([title, description, feature, price]):
-            messagebox.showerror("Error", "All fields are required")
-            return
-
-        try:
-            price = float(price)
-        except ValueError:
-            messagebox.showerror("Error", "Price must be a number")
-            return
-
-        cnx = get_db_connection()
-        if not cnx:
-            return
-
-        cursor = cnx.cursor()
-
-        try:
-            cursor.execute("""
-                SELECT COUNT(*)
-                FROM rental_unit
-                WHERE username = %s
-                AND created_at >= CURDATE()
-            """, (current_user,))
-
-            count = cursor.fetchone()[0]
-
-            if count >= 2:
-                messagebox.showerror(
-                    "Limit reached",
-                    "You can only post 2 rentals per day."
-                )
-                return
-        
-            cursor.execute(
-                """
-                INSERT INTO rental_unit (title, description, feature, price, username)
-                VALUES (%s, %s, %s, %s, %s)
-                """,
-                (title, description, feature, price, current_user),
-            )
-            cnx.commit()
-            messagebox.showinfo("Success", "Rental added successfully!")
-
-            # Clear fields after insert
-            rental_title.delete(0, tk.END)
-            rental_description.delete(0, tk.END)
-            rental_feature.delete(0, tk.END)
-            rental_price.delete(0, tk.END)
-
-        except mysql.connector.Error as err:
-            messagebox.showerror("DB Error", str(err))
-
-        finally:
-            cursor.close()
-            cnx.close()
+    pass
 
 def open_dashboard_window():
     global rental_title, rental_description, rental_feature, rental_price
@@ -287,7 +218,7 @@ def open_dashboard_window():
 root = tk.Tk()
 root.withdraw()
 
-open_login_window()
+open_signup_window()  # Signup opens first
 
 
 root.mainloop()
