@@ -1,5 +1,8 @@
 # **Group Project - COMP 440 Database Design**
 
+Youtube URL For Phase 2: 
+https://youtu.be/4_tltkrHac8
+
 ## **Overview**
 
 This login and user registration interface is intended to be a secure system that only allows a registered user to login into the system.

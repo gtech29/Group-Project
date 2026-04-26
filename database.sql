@@ -12,4 +12,18 @@ CREATE TABLE IF NOT EXISTS user (
     lastName VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     phone VARCHAR(20) UNIQUE NOT NULL
-);
+    );
+
+-- Phase 2: Create the rental unit table
+CREATE TABLE IF NOT EXISTS rental_unit (
+    rental_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(50) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    feature VARCHAR(50) NOT NULL,
+    price INT NOT NULL,
+    username VARCHAR(50),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (username) REFERENCES user (username)
+    
+    );
